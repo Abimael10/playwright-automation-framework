@@ -53,4 +53,8 @@ export class BasePage {
   async assertTitle(expectedTitle: string | RegExp): Promise<void> {
     await expect(this.page).toHaveTitle(expectedTitle);
   }
+
+  async assertURLContains(path: string): Promise<void> {
+    await expect(this.page).toHaveURL(new RegExp(path));
+  }
 }

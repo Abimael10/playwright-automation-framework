@@ -1,35 +1,75 @@
-"standard_user": {
-  "username": "standard_user",
-  "password": "bank_sauce",
-  "description": "Full access"
-},
-"locked_user": {
-  "username": "locked_user",
-  "password": "bank_sauce",
-  "description": "Locked account"
-},
-"frozen_user": {
-  "username": "frozen_user",
-  "password": "bank_sauce",
-  "description": "Frozen — no transfers"
-},
-"overdraft_user": {
-  "username": "overdraft_user",
-  "password": "bank_sauce",
-  "description": "Negative balance"
-},
-"slow_user": {
-  "username": "slow_user",
-  "password": "bank_sauce",
-  "description": "Slow loading"
-},
-"error_user": {
-  "username": "error_user",
-  "password": "bank_sauce",
-  "description": "Wrong loan total"
-},
-"admin_user": {
-  "username": "admin_user",
-  "password": "admin_sauce",
-  "description": "Admin view"
+{
+  "validUser": {
+    "username": "standard_user",
+    "password": "bank_sauce",
+    "role": "standard",
+    "displayName": "Standard User"
+  },
+  "invalidUser": {
+    "username": "invalid_user",
+    "password": "wrong_password",
+    "role": "standard",
+    "displayName": "Invalid User"
+  },
+  "adminUser": {
+    "username": "admin_user",
+    "password": "admin_sauce",
+    "role": "admin",
+    "displayName": "Admin User"
+  },
+  "readOnlyUser": {
+    "username": "frozen_user",
+    "password": "bank_sauce",
+    "role": "readonly",
+    "displayName": "Read Only User"
+  },
+  "standard_user": {
+    "username": "standard_user",
+    "password": "bank_sauce",
+    "role": "standard",
+    "displayName": "Standard User",
+    "description": "Full access"
+  },
+  "locked_user": {
+    "username": "locked_user",
+    "password": "bank_sauce",
+    "role": "standard",
+    "displayName": "Locked User",
+    "description": "Locked account"
+  },
+  "frozen_user": {
+    "username": "frozen_user",
+    "password": "bank_sauce",
+    "role": "readonly",
+    "displayName": "Frozen User",
+    "description": "Frozen — no transfers"
+  },
+  "overdraft_user": {
+    "username": "overdraft_user",
+    "password": "bank_sauce",
+    "role": "standard",
+    "displayName": "Overdraft User",
+    "description": "Negative balance"
+  },
+  "slow_user": {
+    "username": "slow_user",
+    "password": "bank_sauce",
+    "role": "standard",
+    "displayName": "Slow User",
+    "description": "Slow loading"
+  },
+  "error_user": {
+    "username": "error_user",
+    "password": "bank_sauce",
+    "role": "standard",
+    "displayName": "Error User",
+    "description": "Wrong loan total"
+  },
+  "admin_user": {
+    "username": "admin_user",
+    "password": "admin_sauce",
+    "role": "admin",
+    "displayName": "Admin User",
+    "description": "Admin view"
+  }
 }
