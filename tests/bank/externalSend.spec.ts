@@ -6,7 +6,7 @@ test.describe("External Bank Transfers @regression", () => {
     await externalSendPage.goto();
   });
 
-  test("should load external transfer portal correctly @regression", async ({externalSendPage}: {externalSendPage: ExternalSendPage}) => {
+  test("should load external transfer portal correctly @regression", async ({ externalSendPage }: { externalSendPage: ExternalSendPage }) => {
     await externalSendPage.assertLoaded();
-  })
+  });
 })
