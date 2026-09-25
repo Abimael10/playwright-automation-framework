@@ -1,6 +1,7 @@
 import {test as base} from "@playwright/test"
 import {BankLoginPage} from "../pages/BankLoginPage"
 import { TransferPage } from "../pages/TransferPage";
+import { ExternalSendPage } from "../pages/ExternalSendPage";
 
 /**
  * Custom test fixtures extending Playwright's base test.
@@ -15,6 +16,7 @@ import { TransferPage } from "../pages/TransferPage";
 export type CustomFixtures = {
   bankLoginPage: BankLoginPage;
   transferPage: TransferPage;
+  externalSendPage: ExternalSendPage;
 }
 
 export const test = base.extend<CustomFixtures>({
@@ -26,5 +28,10 @@ export const test = base.extend<CustomFixtures>({
   transferPage: async ({ page }, use) => {
     const transferPage = new TransferPage(page);
     await use(transferPage);
+  },
+
+  externalSendPage: async ({ page }, use) => {
+    const externalSendPage = new ExternalSendPage(page);
+    await use(externalSendPage);
   }
 });
