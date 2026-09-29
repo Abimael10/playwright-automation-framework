@@ -4,6 +4,7 @@ import { TransferPage } from "../pages/TransferPage";
 import { ExternalSendPage } from "../pages/ExternalSendPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { AccountsPage } from "../pages/AccountsPage";
+import { BillPayPage } from "../pages/BillPayPage";
 
 /**
  * Custom test fixtures extending Playwright's base test.
@@ -21,6 +22,7 @@ export type CustomFixtures = {
   externalSendPage: ExternalSendPage;
   dashboardPage: DashboardPage;
   accountsPage: AccountsPage;
+  billPayPage: BillPayPage;
 }
 
 export const test = base.extend<CustomFixtures>({
@@ -47,5 +49,10 @@ export const test = base.extend<CustomFixtures>({
   accountsPage: async ({ page }, use) => {
     const accountsPage = new AccountsPage(page);
     await use(accountsPage);
+  },
+
+  billPayPage: async ({ page }, use) => {
+    const billPayPage = new BillPayPage(page);
+    await use(billPayPage);
   }
 });

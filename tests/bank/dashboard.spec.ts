@@ -2,6 +2,7 @@ import { test, expect } from "../../src/fixtures/auth.fixture"
 import type { DashboardPage } from "../../src/pages/DashboardPage"
 import type { AccountsPage } from "../../src/pages/AccountsPage";
 import { TransferPage } from "../../src/pages/TransferPage";
+import { BillPayPage } from "../../src/pages/BillPayPage";
 
 test.describe("Dashboard Bank Information @regression", () => {
   test.beforeEach(async ({ dashboardPage }: { dashboardPage: DashboardPage }) => { 
@@ -57,13 +58,13 @@ test.describe("Dashboard Bank Information @regression", () => {
     }
   });
 
-  test.only("clicking quick transfer navigates to /bank/transfer", async ({
+  test("clicking quick transfer navigates to /bank/transfer", async ({
     dashboardPage,
     transferPage
   }: {
-      dashboardPage: DashboardPage;
-      transferPage: TransferPage;
-    }) => {
+    dashboardPage: DashboardPage;
+    transferPage: TransferPage;
+  }) => {
     //Validate dashboard loads
     await dashboardPage.assertLoaded();
 
@@ -72,5 +73,22 @@ test.describe("Dashboard Bank Information @regression", () => {
 
     //Validate the required URL is loaded
     await transferPage.assertLoaded();
+  });
+
+  test("clicking quick pay bill navigates to /bank/bill-pay", async ({
+    dashboardPage,
+    billPayPage
+  }: {
+      dashboardPage: DashboardPage;
+      billPayPage: BillPayPage
+  }) => {
+    //Assert the dashboard loads
+    await dashboardPage.assertLoaded();
+
+    //From the dashboard, navigate to the Bill Pay page from the sidebar link
+    await dashboardPage.fromDashboardGotoBillPay();
+
+    //Validate the Bill Pay page loads and the URL matches the ones expected from the test case
+    await billPayPage.assertLoaded();
   })
 })
