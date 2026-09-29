@@ -35,6 +35,10 @@ export class DashboardPage extends BasePage {
     await this.sidebar.gotoAccounts();
   }
 
+  async fromDashboardGotoTransfer(): Promise<void> {
+    await this.sidebar.gotoTransfer();
+  }
+
   async getNetWorthValue(): Promise<number> {
     await this.assertVisible(this.netWorthBalance);
     const text = await this.netWorthBalance.textContent();

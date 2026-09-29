@@ -1,6 +1,7 @@
 import { test, expect } from "../../src/fixtures/auth.fixture"
 import type { DashboardPage } from "../../src/pages/DashboardPage"
 import type { AccountsPage } from "../../src/pages/AccountsPage";
+import { TransferPage } from "../../src/pages/TransferPage";
 
 test.describe("Dashboard Bank Information @regression", () => {
   test.beforeEach(async ({ dashboardPage }: { dashboardPage: DashboardPage }) => { 
@@ -55,4 +56,21 @@ test.describe("Dashboard Bank Information @regression", () => {
       ).toBeGreaterThanOrEqual(dates[i + 1].getTime());
     }
   });
+
+  test.only("clicking quick transfer navigates to /bank/transfer", async ({
+    dashboardPage,
+    transferPage
+  }: {
+      dashboardPage: DashboardPage;
+      transferPage: TransferPage;
+    }) => {
+    //Validate dashboard loads
+    await dashboardPage.assertLoaded();
+
+    //From dashboard, navigate to the transfer page by using the sidebar link
+    await dashboardPage.fromDashboardGotoTransfer();
+
+    //Validate the required URL is loaded
+    await transferPage.assertLoaded();
+  })
 })
