@@ -79,8 +79,8 @@ test.describe("Dashboard Bank Information @regression", () => {
     dashboardPage,
     billPayPage
   }: {
-      dashboardPage: DashboardPage;
-      billPayPage: BillPayPage
+    dashboardPage: DashboardPage;
+    billPayPage: BillPayPage
   }) => {
     //Assert the dashboard loads
     await dashboardPage.assertLoaded();
@@ -90,5 +90,10 @@ test.describe("Dashboard Bank Information @regression", () => {
 
     //Validate the Bill Pay page loads and the URL matches the ones expected from the test case
     await billPayPage.assertLoaded();
-  })
+  });
+
+  test("clicking the moon/sun icon toggles dark mode", async ({dashboardPage}: {dashboardPage: DashboardPage}) => {
+    await dashboardPage.assertLoaded();
+    await dashboardPage.goDark();
+  });
 })

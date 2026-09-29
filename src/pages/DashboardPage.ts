@@ -49,6 +49,14 @@ export class DashboardPage extends BasePage {
     return parseCurrencyToNumber(text ?? "");
   }
 
+  async goDark(): Promise<void> {
+    await this.sidebar.switchToDarkMode();
+  }
+
+  async goLight(): Promise<void> {
+    await this.sidebar.switchToLightMode();
+  }
+
   //Utilities
   async getRecentTransactionCount(): Promise<number> {
     await expect(this.transactionRows.first()).toBeVisible();
