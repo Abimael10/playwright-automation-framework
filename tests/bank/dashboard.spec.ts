@@ -1,8 +1,8 @@
 import { test, expect } from "../../src/fixtures/auth.fixture"
 import type { DashboardPage } from "../../src/pages/DashboardPage"
 import type { AccountsPage } from "../../src/pages/AccountsPage";
-import { TransferPage } from "../../src/pages/TransferPage";
-import { BillPayPage } from "../../src/pages/BillPayPage";
+import type { TransferPage } from "../../src/pages/TransferPage";
+import type { BillPayPage } from "../../src/pages/BillPayPage";
 
 test.describe("Dashboard Bank Information @regression", () => {
   test.beforeEach(async ({ dashboardPage }: { dashboardPage: DashboardPage }) => { 
