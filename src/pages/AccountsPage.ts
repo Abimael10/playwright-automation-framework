@@ -8,7 +8,6 @@ export class AccountsPage extends BasePage {
   private readonly pageTitle: Locator;
   private readonly balanceCells: Locator;
   private readonly accountsField: Locator;
-  private readonly accountsTypeBadge: Locator;
   
   constructor(page: Page) {
     super(page);
@@ -16,7 +15,6 @@ export class AccountsPage extends BasePage {
     this.pageTitle = page.getByTestId("accounts-page-title");
     this.balanceCells = page.getByTestId("account-row-balance");
     this.accountsField = page.getByTestId("account-row");
-    this.accountsTypeBadge = page.getByTestId("account-row-type-badge");
   }
 
   //Actions
