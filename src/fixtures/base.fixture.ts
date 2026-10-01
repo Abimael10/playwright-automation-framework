@@ -4,6 +4,7 @@ import { TransferPage } from "../pages/TransferPage";
 import { ExternalSendPage } from "../pages/ExternalSendPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { AccountsPage } from "../pages/AccountsPage";
+import { AccountDetailsPage } from "../pages/AccountDetailsPage";
 import { BillPayPage } from "../pages/BillPayPage";
 
 /**
@@ -22,6 +23,7 @@ export type CustomFixtures = {
   externalSendPage: ExternalSendPage;
   dashboardPage: DashboardPage;
   accountsPage: AccountsPage;
+  accountDetailsPage: AccountDetailsPage;
   billPayPage: BillPayPage;
 }
 
@@ -49,6 +51,11 @@ export const test = base.extend<CustomFixtures>({
   accountsPage: async ({ page }, use) => {
     const accountsPage = new AccountsPage(page);
     await use(accountsPage);
+  },
+
+  accountDetailsPage: async ({ page }, use) => {
+    const accountDetailsPage = new AccountDetailsPage(page);
+    await use(accountDetailsPage);
   },
 
   billPayPage: async ({ page }, use) => {

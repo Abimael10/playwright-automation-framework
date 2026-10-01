@@ -53,4 +53,11 @@ export class AccountsPage extends BasePage {
     await expect(savings).toHaveCount(1);
     await expect(savings).toBeVisible();
   }
+
+  async viewCheckingAccount(): Promise<void> {
+    const checking = this.accountsField.filter({ hasText: "Checking" });
+    await expect(checking).toHaveCount(1);
+    await checking.getByRole("button", ({ name: "View" })).click();
+    await this.page.waitForURL(/\/bank\/accounts\/.+/);
+  }
 }
