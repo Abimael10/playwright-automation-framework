@@ -46,7 +46,7 @@ test.describe("Accounts page tests @regression", () => {
 test.describe("overdraft @regression", () => {
   test.use({ storageState: { cookies: [], origins: [] } });
 
-  test.only("overdraft indicator on negative balance checking account @regression", async ({
+  test("overdraft indicator on negative balance checking account @regression", async ({
     page,
     bankLoginPage,
     accountsPage
@@ -68,4 +68,28 @@ test.describe("overdraft @regression", () => {
     //Step 3. Overdrawn badge on the negative checking account
     await accountsPage.getOverdrawnBadgeOnNegativeCheckingAccount();
   });
-})
+});
+
+test.describe("frozen accounts @regression", () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test("frozen accounts display a prominent disabled banner @regression", async ({
+    page,
+    bankLoginPage,
+    accountsPage
+  }: {
+    page: Page;
+    bankLoginPage: BankLoginPage;
+    accountsPage: AccountsPage;
+  }) => {
+    const user = TestDataManager.getInstance().getFrozenUser();
+    await bankLoginPage.goto();
+    await bankLoginPage.login(user.username, user.password);
+    await expect(page).toHaveURL(/\/bank\/dashboard/);
+
+    await accountsPage.goto();
+    await accountsPage.assertLoaded();
+
+    await accountsPage.assertFrozenAccountBanner();
+  });
+});

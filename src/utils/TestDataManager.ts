@@ -162,6 +162,14 @@ export class TestDataManager {
     const users = this.usersData as unknown as Record<string, UserData>;
     return users["overdraft_user"];
   }
+  
+  /**
+   *  Get frozen user credentials
+   */
+  getFrozenUser(): UserData {
+    const users = this.usersData as unknown as Record<string, UserData>;
+    return users["frozen_user"];
+  }
 
   /**
    * Get a random valid email for testing

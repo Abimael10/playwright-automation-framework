@@ -10,7 +10,8 @@ export class AccountsPage extends BasePage {
   private readonly accountsField: Locator;
   private readonly checkingRow: Locator;
   private readonly savingsRow: Locator;
-  private readonly overdrawnBadge: Locator;
+  //private readonly overdrawnBadge: Locator;
+  private readonly frozenAccountBanner: Locator;
   
   constructor(page: Page) {
     super(page);
@@ -20,7 +21,8 @@ export class AccountsPage extends BasePage {
     this.accountsField = page.getByTestId("account-row");
     this.checkingRow = page.getByTestId("account-row").filter({ hasText: "Checking" });
     this.savingsRow = page.getByTestId("account-row").filter({ hasText: "Savings" });
-    this.overdrawnBadge = page.getByTestId("account-row-overdrawn");
+    //this.overdrawnBadge = page.getByTestId("account-row-overdrawn");
+    this.frozenAccountBanner = page.getByTestId("frozen-account-banner");
   }
 
   //Actions
@@ -69,5 +71,9 @@ export class AccountsPage extends BasePage {
     await expect(checking).toHaveCount(1);
     await checking.getByRole("button", ({ name: "View" })).click();
     await this.page.waitForURL(/\/bank\/accounts\/.+/);
+  }
+
+  async assertFrozenAccountBanner(): Promise<void> {
+    await expect(this.frozenAccountBanner).toBeVisible();
   }
 }
