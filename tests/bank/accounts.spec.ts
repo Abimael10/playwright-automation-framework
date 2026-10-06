@@ -41,6 +41,16 @@ test.describe("Accounts page tests @regression", () => {
     expect(masked, `account number "${masked}" should look like ****0000`).toMatch(/^\*{4}\d{4}$/);
     await expect(page.getByText(/\d{5,}/)).toHaveCount(0);
   });
+
+  test("user can add a new savings account @regression", async ({
+    accountsPage
+  }: {
+    accountsPage: AccountsPage
+  }) => {
+    await accountsPage.assertLoaded();
+
+    await accountsPage.createNewSavingsAccount("Added Savings Account", "Savings", "2500");
+  });
 });
 
 test.describe("overdraft @regression", () => {

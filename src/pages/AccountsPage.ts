@@ -12,6 +12,12 @@ export class AccountsPage extends BasePage {
   private readonly savingsRow: Locator;
   //private readonly overdrawnBadge: Locator;
   private readonly frozenAccountBanner: Locator;
+  private readonly addAccountButton: Locator;
+  private readonly newAccountNameField: Locator;
+  private readonly newAccountTypeField: Locator;
+  private readonly newAccountStartingBalance: Locator;
+  private readonly newAccountTermsField: Locator;
+  private readonly newAccountAddButtonForm: Locator;
   
   constructor(page: Page) {
     super(page);
@@ -23,6 +29,12 @@ export class AccountsPage extends BasePage {
     this.savingsRow = page.getByTestId("account-row").filter({ hasText: "Savings" });
     //this.overdrawnBadge = page.getByTestId("account-row-overdrawn");
     this.frozenAccountBanner = page.getByTestId("frozen-account-banner");
+    this.addAccountButton = page.getByRole("button", ({ name: "Add Account" }));
+    this.newAccountNameField = page.getByRole('textbox', ({ name: "Account Name" }));
+    this.newAccountTypeField = page.getByRole('combobox', ({ name: "Account Type" }));
+    this.newAccountStartingBalance = page.getByPlaceholder('0.00');
+    this.newAccountTermsField = page.getByRole('checkbox', ({ name: "I accept the terms and conditions" }));
+    this.newAccountAddButtonForm = page.getByTestId("save-account-form-btn");
   }
 
   //Actions
@@ -41,6 +53,32 @@ export class AccountsPage extends BasePage {
     await expect(this.checkingRow).toBeVisible();
     await expect(this.checkingRow).toContainText("Overdrawn");
     await expect(this.savingsRow.getByTestId("account-row-overdrawn")).toHaveCount(0);
+  }
+
+  async createNewSavingsAccount(account_name: string, account_type: string, account_balance: string): Promise<void> {
+    await this.assertVisible(this.addAccountButton);
+    await this.addAccountButton.click();
+
+    //Expect fields to be present
+    await expect(this.newAccountNameField).toBeVisible();
+    await expect(this.newAccountTypeField).toBeVisible();
+    await expect(this.newAccountStartingBalance).toBeVisible();
+    await expect(this.newAccountTermsField).toBeVisible();
+    await expect(this.newAccountAddButtonForm).toBeVisible();
+
+    //Complete the form to create the new account
+    await this.fill(this.newAccountNameField, account_name);
+    await this.click(this.newAccountTypeField);
+    await this.click(this.page.getByRole("option", ({ name: account_type })));
+    await this.newAccountStartingBalance.clear();
+    await this.fill(this.newAccountStartingBalance, account_balance);
+    await this.click(this.newAccountTermsField);
+    await this.click(this.newAccountAddButtonForm);
+
+    //Validate that the account created contains the name of the account we have given to it to match for one single element
+    await expect(this.savingsRow.getByTestId("account-row-name").filter({
+      hasText: account_name
+    })).toHaveCount(1);
   }
 
   //Validations
