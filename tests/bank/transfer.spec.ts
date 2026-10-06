@@ -35,5 +35,15 @@ test.describe("Bank Transfers @regression", () => {
 
     //Step 8. Confirm the transfer success
     await transferPage.assertTransferSuccess();
-  })
+  });
+
+  test.only("transfer form loads with from/to dropdowns @regression", async ({transferPage}: {transferPage: TransferPage}) => {
+    await transferPage.assertLoaded();
+    
+    //Step 2. Select the account where the funds are going to be transferred from.
+    await transferPage.selectFromAccount("High-Yield Savings — $12,800.00");
+
+    //Step 3. Select the account where the funds are going to be transferred to.
+    await transferPage.selectToAccount("Everyday Checking — $4,250.00");
+  });
 });
