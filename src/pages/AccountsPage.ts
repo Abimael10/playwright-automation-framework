@@ -8,6 +8,9 @@ export class AccountsPage extends BasePage {
   private readonly pageTitle: Locator;
   private readonly balanceCells: Locator;
   private readonly accountsField: Locator;
+  private readonly checkingRow: Locator;
+  private readonly savingsRow: Locator;
+  private readonly overdrawnBadge: Locator;
   
   constructor(page: Page) {
     super(page);
@@ -15,6 +18,9 @@ export class AccountsPage extends BasePage {
     this.pageTitle = page.getByTestId("accounts-page-title");
     this.balanceCells = page.getByTestId("account-row-balance");
     this.accountsField = page.getByTestId("account-row");
+    this.checkingRow = page.getByTestId("account-row").filter({ hasText: "Checking" });
+    this.savingsRow = page.getByTestId("account-row").filter({ hasText: "Savings" });
+    this.overdrawnBadge = page.getByTestId("account-row-overdrawn");
   }
 
   //Actions
@@ -27,6 +33,12 @@ export class AccountsPage extends BasePage {
     await expect(this.balanceCells.first()).toBeVisible();
     const texts = await this.balanceCells.allTextContents();
     return texts.map((t) => parseCurrencyToNumber(t));
+  }
+
+  async getOverdrawnBadgeOnNegativeCheckingAccount(): Promise<void> {
+    await expect(this.checkingRow).toBeVisible();
+    await expect(this.checkingRow).toContainText("Overdrawn");
+    await expect(this.savingsRow.getByTestId("account-row-overdrawn")).toHaveCount(0);
   }
 
   //Validations

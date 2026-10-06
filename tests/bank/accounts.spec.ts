@@ -1,4 +1,6 @@
 import { test, expect } from "../../src/fixtures/auth.fixture";
+import { TestDataManager } from "../../src/utils/TestDataManager";
+import type { BankLoginPage } from "../../src/pages/BankLoginPage";
 import type { Page } from "@playwright/test";
 import type { AccountDetailsPage } from "../../src/pages/AccountDetailsPage";
 import type { AccountsPage } from "../../src/pages/AccountsPage";
@@ -38,5 +40,32 @@ test.describe("Accounts page tests @regression", () => {
     const masked = await accountDetailsPage.getMaskedNumber();
     expect(masked, `account number "${masked}" should look like ****0000`).toMatch(/^\*{4}\d{4}$/);
     await expect(page.getByText(/\d{5,}/)).toHaveCount(0);
+  });
+});
+
+test.describe("overdraft @regression", () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test.only("overdraft indicator on negative balance checking account @regression", async ({
+    page,
+    bankLoginPage,
+    accountsPage
+  }: {
+    page: Page;
+    bankLoginPage: BankLoginPage;
+    accountsPage: AccountsPage;
+  }) => {
+    //Step 1. Login as overdraft_user (fresh session, not the worker's standard_user)
+    const user = TestDataManager.getInstance().getOverdraftUser();
+    await bankLoginPage.goto();
+    await bankLoginPage.login(user.username, user.password);
+    await expect(page).toHaveURL(/\/bank\/dashboard/); //Needs `page` in the signature
+
+    //Step 2. Accounts page
+    await accountsPage.goto();
+    await accountsPage.assertLoaded();
+
+    //Step 3. Overdrawn badge on the negative checking account
+    await accountsPage.getOverdrawnBadgeOnNegativeCheckingAccount();
   });
 })
