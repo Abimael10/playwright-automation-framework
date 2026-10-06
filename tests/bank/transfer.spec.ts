@@ -37,7 +37,7 @@ test.describe("Bank Transfers @regression", () => {
     await transferPage.assertTransferSuccess();
   });
 
-  test.only("transfer form loads with from/to dropdowns @regression", async ({transferPage}: {transferPage: TransferPage}) => {
+  test("transfer form loads with from/to dropdowns @regression", async ({transferPage}: {transferPage: TransferPage}) => {
     await transferPage.assertLoaded();
     
     //Step 2. Select the account where the funds are going to be transferred from.
@@ -45,5 +45,12 @@ test.describe("Bank Transfers @regression", () => {
 
     //Step 3. Select the account where the funds are going to be transferred to.
     await transferPage.selectToAccount("Everyday Checking — $4,250.00");
+  });
+
+  test("same From Account cannot be selected as To Account @regression", async ({transferPage}: {transferPage: TransferPage}) => {
+    await transferPage.assertLoaded();
+
+    await transferPage.selectFromAccount("High-Yield Savings — $12,800.00");
+    await transferPage.assertAccountFromAndToAccountNotEqual("High-Yield Savings — $12,800.00");
   });
 });

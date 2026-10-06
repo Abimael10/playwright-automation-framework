@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class TransferPage extends BasePage {
@@ -12,6 +12,7 @@ export class TransferPage extends BasePage {
   private readonly confirmDialog: Locator;
   private readonly confirmTransferBtn: Locator;
   private readonly successHeading: Locator;
+  private readonly transferErrorMessage: Locator;
   
   constructor(page: Page) {
     super(page);
@@ -25,6 +26,7 @@ export class TransferPage extends BasePage {
     this.confirmDialog = page.getByRole('dialog', ({ name: 'Confirm Transfer' }));
     this.confirmTransferBtn = page.getByRole('button', ({ name: "Confirm Transfer" }));
     this.successHeading = page.getByTestId('transfer-success-heading');
+    this.transferErrorMessage = page.getByTestId("transfer-error-message");
   }
 
   //Page action methods
@@ -74,5 +76,10 @@ export class TransferPage extends BasePage {
   async assertTransferSuccess(): Promise<void> {
     await this.assertURLContains('/bank/transfer/confirmation');
     await this.waitForVisible(this.successHeading);
+  }
+
+  async assertAccountFromAndToAccountNotEqual(optionName: string): Promise<void> {
+    await this.click(this.toAccountField);
+    await expect(this.page.getByRole('option', ({ name: optionName }))).toHaveCount(0);
   }
 }
