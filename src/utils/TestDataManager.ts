@@ -156,6 +156,14 @@ export class TestDataManager {
   }
 
   /**
+   * Get overdraft user credentials (negative balance, for overdraft indicator testing)
+   */
+  getOverdraftUser(): UserData {
+    const users = this.usersData as unknown as Record<string, UserData>;
+    return users["overdraft_user"];
+  }
+
+  /**
    * Get a random valid email for testing
    */
   static generateRandomEmail(): string {
